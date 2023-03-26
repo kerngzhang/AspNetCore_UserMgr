@@ -1,0 +1,8 @@
+/.vs
+/UserMgr.Domain/bin
+/UserMgr.Domain/obj
+/UserMgr.WebApi/bin
+/UserMgr.WebApi/obj
+/UserMgr.Infrastracture/bin
+/UserMgr.Infrastracture/obj
+/UserMgr.Infrastracture/Migrations
