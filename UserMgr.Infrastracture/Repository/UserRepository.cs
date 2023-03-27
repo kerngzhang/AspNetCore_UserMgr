@@ -36,14 +36,14 @@ namespace UserMgr.Infrastracture.Repository
 
         public async Task<User?> FindOneAsync(PhoneNumber phoneNumber)
         {
-            return await dbContext.Users.SingleOrDefaultAsync(c => 
+            return await dbContext.Users.Include(c=>c.UserAccessFail).SingleOrDefaultAsync(c => 
             c.PhoneNumber.Number == phoneNumber.Number &&
             c.PhoneNumber.RegionNumber == phoneNumber.RegionNumber);
         }
 
         public async Task<User?> FindOneAsync(Guid userId)
         {
-            return await dbContext.Users.SingleOrDefaultAsync(c =>c.Id==userId);
+            return await dbContext.Users.Include(c => c.UserAccessFail).SingleOrDefaultAsync(c =>c.Id==userId);
         }
 
         public async Task<string?> FindPhoneNumberCodeAsync(PhoneNumber phoneNumber)

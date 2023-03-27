@@ -1,6 +1,10 @@
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
+using UserMgr.Domain;
 using UserMgr.Infrastracture;
+using UserMgr.Infrastracture.Repository;
 using UserMgr.WebAPI;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -23,6 +27,14 @@ builder.Services.Configure<MvcOptions>(o =>
 {
     o.Filters.Add<UnitOfWorkFilter>();
 });
+
+builder.Services.AddDistributedMemoryCache();
+//Add MediaR
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<Program>());
+
+builder.Services.AddScoped<UserDomainService>()
+    .AddScoped<IUserRepository, UserRepository>()
+    .AddScoped<ISmsCodeSender, MockSmsCodeSender>();
 
 var app = builder.Build();
 
